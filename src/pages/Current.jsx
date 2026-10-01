@@ -82,12 +82,13 @@ function Current({ location }) {
     >
       <h3 className="text-xl font-bold text-center">Current Weather</h3>
       <span className={`flex flex-row gap-10 items-center justify-center  drop-shadow-xl w-full h-lg `}>
-        <span className="text-md text-lg font-semibold drop-shadow-xl">
+        <span className="flex flex-col gap-3 text-md text-lg font-semibold drop-shadow-xl">
           <p className="text-lg font-medium">{weather.location.name},</p>
           <p className="text-md">
             {weather.location.region}, {weather.location.country}
           </p>
           <p className="text-sm">Local Time: {weather.location.localtime}</p>
+
         </span>
 
         <span>
@@ -98,12 +99,11 @@ function Current({ location }) {
           />
           <p className="text-2xl font-bold">{weather.current.temp_c}°C</p>
           <p className="text-md">Feels like: {weather.current.feelslike_c}°C</p>
+          <p className="text-md">Humidity: {weather.current.humidity}%</p>
+          <p className="text-lg">{weather.current.condition.text}</p>
         </span>
       </span>
-      <span className={`flex  justify-content space-x-7 text-md text-lg font-semibold drop-shadow-xl flex flex-row gap-4 items-center justify-center  drop-shadow-xl w-full h-lg `}>
-        <p className="text-md">Humidity: {weather.current.humidity}%</p>
-        <p className="text-lg">{weather.current.condition.text}</p>
-      </span>
+  
 
       <span className="m-3 text-sm text-lg font-light drop-shadow-xl">
         Last Updated: {weather.current.last_updated}
