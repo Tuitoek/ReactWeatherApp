@@ -1,7 +1,7 @@
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 const BASE_URL = "https://api.weatherapi.com/v1";
 
-export const fetchWeatherData = async (location) => {
+export const getCurrentWeather = async (location) => {
   try {
     const response = await fetch(
       `${BASE_URL}/current.json?key=${API_KEY}&q=${location}`,
@@ -13,7 +13,7 @@ export const fetchWeatherData = async (location) => {
     throw error;
   }
 };
-export const fetchForecastData = async (location, days) => {
+export const getForecastData = async (location, days) => {
   try {
     const response = await fetch(
       `${BASE_URL}/forecast.json?key=${API_KEY}&q=${location}&days=${days}`,
