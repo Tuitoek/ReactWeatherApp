@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import WeatherLogo from "../assets/WeatherLogo.png";
 import SearchBar from "./SearchBar";
 
-function Navbar() {
+function Navbar({ location, setLocation }) {
   return (
     <div
       className="flex flex-col items-center justify-center 
@@ -13,7 +13,7 @@ function Navbar() {
         <img className="w-16 h-16" src={WeatherLogo} alt="Weather Logo" />
 
         <h1 className="text-xl font-semibold dop-shadow-xl">Weather App</h1>
-        <SearchBar />
+        <SearchBar location={location} setLocation={setLocation} />
       </span>
 
       <span className="text-md font-semibold dop-shadow-xl flex flex-row gap-8 border-b-2 border-gray-300 pb-2">
