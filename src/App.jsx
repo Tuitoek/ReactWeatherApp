@@ -13,7 +13,7 @@ import Timezone from "./pages/Timezone";
 import Sports from "./pages/Sports";
 
 function App() {
-  const [location, setLocation] = useState("Nairobi"); 
+  const [location, setLocation] = useState("Nairobi");
   return (
     <div
       className="h-screen w-screen 

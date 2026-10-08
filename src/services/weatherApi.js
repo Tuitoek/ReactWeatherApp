@@ -13,15 +13,10 @@ export const getCurrentWeather = async (location) => {
     throw error;
   }
 };
-export const getForecastData = async (location, days) => {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/forecast.json?key=${API_KEY}&q=${location}&days=${days}`,
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching forecast data:", error);
-    throw error;
-  }
+export const getForecastData = async (location, days,aqi,alerts) => {
+  const response = await fetch(
+    `${BASE_URL}/forecast.json?key=${API_KEY}&q=${location}&days=${days}&aqi=${aqi}&alerts=${alerts}`
+  );
+  const data = await response.json();
+  return data;
 };
