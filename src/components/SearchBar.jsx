@@ -10,9 +10,9 @@ const SearchBar = ({ location, setLocation }) => {
   };
 
   return (
-    <div className="flex items-center justify-center gap-4 p-10">
+    <div className="flex flex-row items-center justify-center gap-2 border-2 border-gray-300 rounded-lg p-2">
       <input
-        className="w-lg h-lg border-2 border-gray-300 rounded-lg p-2"
+        className="p-2 mr-2"
         type="search"
         placeholder="Please Enter Your Location"
         value={search}
@@ -20,11 +20,12 @@ const SearchBar = ({ location, setLocation }) => {
       />
 
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+        className="bg-black text-white font-semibold text-sm py-2 px-4 rounded-xl"
         onClick={handleSearch}
       >
         Go
       </button>
+      
     </div>
   );
 };

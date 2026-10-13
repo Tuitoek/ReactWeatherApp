@@ -16,8 +16,7 @@ function App() {
   const [location, setLocation] = useState("Nairobi");
   return (
     <div
-      className="h-screen w-screen 
-    bg-white-100 flex flex-col items-center  gap-4 p-10 drop-shadow-sm"
+      className="h-screen w-screen drop-shadow-sm p-10"
     >
       <BrowserRouter>
         <Navbar location={location} setLocation={setLocation} />
