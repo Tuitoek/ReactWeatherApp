@@ -1,31 +1,25 @@
 import { useState, useEffect } from 'react' 
-import { getForecastData } from '../services/weatherApi.js'
+import { getForecastData } from '../services/weatherApi.js';
+import { useWeatherLocation } from '../context/LocationProviderContext.jsx';
 
-const CurrentWeatherCard = ({ location }) => {
+const CurrentWeatherCard = () => {
+    const { location } = useWeatherLocation();
     const [weather, setWeather] = useState(null);
 
   useEffect(() => {
-    if (!location) return;
+  if (!location) return;
 
-    const fetchWeather = async () => {
-      try {
-        const response = await fetch(
-          `https://api.weatherapi.com/v1/current.json?key=${
-            import.meta.env.VITE_WEATHER_API_KEY
-          }&q=${location}`,
-        );
+  const fetchWeather = async () => {
+    try {
+      const data = await getForecastData(location);
+      setWeather(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-        const data = await response.json();
-        console.log(data);
-
-        setWeather(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchWeather();
-  }, [location]);
+  fetchWeather();
+}, [location]);
 
   const getWeatherTheme = (condition) => {
     const weather = condition.toLowerCase();
