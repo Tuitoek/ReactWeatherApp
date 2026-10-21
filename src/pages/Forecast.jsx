@@ -1,8 +1,9 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import { getForecastData } from "../services/weatherApi.js";
+import { useWeatherLocation } from "../context/LocationProviderContext";
 
-const Forecast = ({ location }) => {
+const Forecast = () => {
+  const { location }  = useWeatherLocation();
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState({
     days: 1,
@@ -133,14 +134,15 @@ const Forecast = ({ location }) => {
 
       {weatherData && (
         <div>
-          {weatherData.forecast > 1 ? (
-            <div>
-              <h3 className="text-xl font-bold">Forecast for {location}</h3>
+          <h3 className="text-xl font-bold">Forecast for {location}</h3>
+
+          <ul className="flex flex-row flex-wrap gap-4 items-center justify-content  p-10 ">
+            {weatherData.forecast.forecastday.map((day) => (
               <li
                 className="w-auto h-auto border rounded-md border-gray-300 p-4 border-solid shadow-md"
                 key={day.date}
               >
-                <p>Date: {day.date}</p>
+                <p className="text-cyan-900">Date: {day.date}</p>
                 <p>Max Temp: {day.day.maxtemp_c}°C</p>
                 <p>Min Temp: {day.day.mintemp_c}°C</p>
                 <p>Condition: {day.day.condition.text}</p>
@@ -149,26 +151,8 @@ const Forecast = ({ location }) => {
                 <p>Max Wind Speed: {day.day.maxwind_kph} kph</p>
                 <p>UV Index: {day.day.uv}</p>
               </li>
-            </div>
-          ) : (
-            <ul className="flex flex-row flex-wrap gap-4 items-center justify-content  p-10 ">
-              {weatherData.forecast.forecastday.map((day) => (
-                <li
-                  className="w-auto h-auto border rounded-md border-gray-300 p-4 border-solid shadow-md"
-                  key={day.date}
-                >
-                  <p className="text-cyan-900">Date: {day.date}</p>
-                  <p>Max Temp: {day.day.maxtemp_c}°C</p>
-                  <p>Min Temp: {day.day.mintemp_c}°C</p>
-                  <p>Condition: {day.day.condition.text}</p>
-                  <p>Chance of Rain: {day.day.daily_chance_of_rain}%</p>
-                  <p>Chance of Snow: {day.day.daily_chance_of_snow}%</p>
-                  <p>Max Wind Speed: {day.day.maxwind_kph} kph</p>
-                  <p>UV Index: {day.day.uv}</p>
-                </li>
-              ))}
-            </ul>
-          )}
+            ))}
+          </ul>
         </div>
       )}
     </div>
