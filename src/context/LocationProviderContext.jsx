@@ -1,8 +1,8 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 const LocationContext = createContext();
 
-const LocationProviderContext = ({ children }) => {
-  const [location, setLocation] = useState("");
+export const LocationProvider = ({ children }) => {
+  const [location, setLocation] = useState("Pretoria");
   return (
     <LocationContext.Provider value={{ location, setLocation }}>
       {children}
@@ -10,4 +10,4 @@ const LocationProviderContext = ({ children }) => {
   );
 };
 
-export default LocationProviderContext;
+export const useWeatherLocation = () => useContext(LocationContext);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import { Router, Routes, Route, BrowserRouter } from "react-router-dom";
 import "./index.css";
 import "./App.css";
@@ -11,27 +11,28 @@ import Alerts from "./pages/Alerts";
 import Marine from "./pages/Marine";
 import Timezone from "./pages/Timezone";
 import Sports from "./pages/Sports";
+import { LocationProvider } from "./context/LocationProviderContext";
 
 function App() {
-  const [location, setLocation] = useState("Nairobi");
   return (
-    <div
-      className="h-screen w-screen drop-shadow-sm p-10"
-    >
+    <LocationProvider>
       <BrowserRouter>
-        <Navbar location={location} setLocation={setLocation} />
-        <Routes>
-          <Route path="/current" element={<Current location={location} />} />
-          <Route path="/forecast" element={<Forecast location={location} />} />
-          <Route path="/astronomy" element={<Astronomy location={location} />} />
-          <Route path="/history" element={<History location={location} />} />
-          <Route path="/alerts" element={<Alerts location={location} />} />
-          <Route path="/marine" element={<Marine  location={location} />} />
-          <Route path="/timezone" element={<Timezone location={location} />} />
-          <Route path="/sports" element={<Sports location={location} />} />
-        </Routes>
+        <div className="h-screen w-screen drop-shadow-sm p-10">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Current />} />
+            <Route path="/current" element={<Current />} />
+            <Route path="/forecast" element={<Forecast />} />
+            <Route path="/astronomy" element={<Astronomy />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/alerts" element={<Alerts />} />
+            <Route path="/marine" element={<Marine />} />
+            <Route path="/timezone" element={<Timezone />} />
+            <Route path="/sports" element={<Sports />} />
+          </Routes>
+        </div>
       </BrowserRouter>
-    </div>
+    </LocationProvider>
   );
 }
 

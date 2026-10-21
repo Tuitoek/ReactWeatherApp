@@ -46,7 +46,6 @@ const Forecast = ({ location }) => {
       forecastData.alerts,
     );
     setWeatherData(data);
-    console.log("Forecast data fetched:", data);
   };
 
   const handleChange = (event) => {
