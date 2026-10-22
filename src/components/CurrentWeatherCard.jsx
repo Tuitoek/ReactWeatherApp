@@ -1,25 +1,25 @@
-import { useState, useEffect } from 'react' 
-import { getForecastData } from '../services/weatherApi.js';
-import { useWeatherLocation } from '../context/LocationProviderContext.jsx';
+import { useState, useEffect } from "react";
+import { getForecastData } from "../services/weatherApi.js";
+import { useWeatherLocation } from "../context/LocationProviderContext.jsx";
 
 const CurrentWeatherCard = () => {
-    const { location } = useWeatherLocation();
-    const [weather, setWeather] = useState(null);
+  const { location } = useWeatherLocation();
+  const [weather, setWeather] = useState(null);
 
   useEffect(() => {
-  if (!location) return;
+    if (!location) return;
 
-  const fetchWeather = async () => {
-    try {
-      const data = await getForecastData(location);
-      setWeather(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    const fetchWeather = async () => {
+      try {
+        const data = await getForecastData(location);
+        setWeather(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  fetchWeather();
-}, [location]);
+    fetchWeather();
+  }, [location]);
 
   const getWeatherTheme = (condition) => {
     const weather = condition.toLowerCase();
@@ -69,22 +69,21 @@ const CurrentWeatherCard = () => {
     return <p>Loading...</p>;
   }
   return (
-        <div
+    <div
       className={`flex  flex-wrap
     flex-col  gap-4 my-6 p-10 drop-shadow-xl w-auto h-auto border-2 border-gray-300 rounded-lg ${themes[theme]}`}
     >
       <span className={`flex flex-row gap-10   drop-shadow-xl w-full h-lg `}>
         <span className="flex flex-col gap-3 text-md text-lg font-semibold drop-shadow-xl">
           <span className="flex flex-row gap-6 items-center   drop-shadow-xl ">
-  <p className="text-md">
-            {weather.location.name}, {weather.location.country}
-          </p>
-           <p className="text-sm">
-            {weather.location.lat}, {weather.location.lon}
-          </p>
+            <p className="text-md">
+              {weather.location.name}, {weather.location.country}
+            </p>
+            <p className="text-sm">
+              {weather.location.lat}, {weather.location.lon}
+            </p>
           </span>
-         
-        
+
           <span className="flex flex-row gap-6 items-center justify-center  drop-shadow-xl w-full h-lg ">
             <p className="text-5xl font-bold">{weather.current.temp_c}°C</p>
             <img
@@ -102,30 +101,61 @@ const CurrentWeatherCard = () => {
         </span>
       </span>
       <span className="flex flex-row gap-10   drop-shadow-xl w-full h-lg ">
-        <p className="text-md"><span className="text-xl text-gray-600">UV:</span> <span className="font-bold text-lg">{weather.current.uv}</span></p>
-        <p className="text-md"><span className=" text-xl text-gray-700">Pressure:</span> <span className="font-bold text-lg">{weather.current.pressure_mb} hPa</span> </p>
-        <p className="text-md"><span className=" text-xl text-gray-700">Visibility:</span> <span className="font-bold text-lg">{weather.current.vis_km} KM</span> </p>
+        <p className="text-md">
+          <span className="text-xl text-gray-600">UV:</span>{" "}
+          <span className="font-bold text-lg">{weather.current.uv}</span>
+        </p>
+        <p className="text-md">
+          <span className=" text-xl text-gray-700">Pressure:</span>{" "}
+          <span className="font-bold text-lg">
+            {weather.current.pressure_mb} hPa
+          </span>{" "}
+        </p>
+        <p className="text-md">
+          <span className=" text-xl text-gray-700">Visibility:</span>{" "}
+          <span className="font-bold text-lg">
+            {weather.current.vis_km} KM
+          </span>{" "}
+        </p>
       </span>
       <span className="flex flex-row gap-10   drop-shadow-xl w-full h-lg ">
         <div className="flex flex-col gap-2 drop-shadow-xl  border-1 border-blue-300 rounded-lg p-4 bg-blue-100">
           <p className="text-lg font-bold">Wind</p>
-         <p className="text-sm"><span className=" text-sm text-gray-700">Speed:</span> <span className="font-bold text-md">{weather.current.wind_kph} KPH</span> </p>
-         <p className="text-md"><span className=" text-sm text-gray-700">Direction:</span> <span className="font-bold text-md">{weather.current.wind_dir}</span> </p>
-
+          <p className="text-sm">
+            <span className=" text-sm text-gray-700">Speed:</span>{" "}
+            <span className="font-bold text-md">
+              {weather.current.wind_kph} KPH
+            </span>{" "}
+          </p>
+          <p className="text-md">
+            <span className=" text-sm text-gray-700">Direction:</span>{" "}
+            <span className="font-bold text-md">
+              {weather.current.wind_dir}
+            </span>{" "}
+          </p>
         </div>
         <div className="flex flex-col gap-2 drop-shadow-xl  border-1 border-blue-300 rounded-lg p-4 bg-blue-100">
           <p className="text-lg font-bold">Humidity</p>
-         <p className="text-sm"><span className=" text-sm text-gray-700">Value:</span> <span className="font-bold text-md">{weather.current.humidity}%</span> </p>
-<p className="text-sm"><span className=" text-sm text-gray-700">Dew Point:</span> <span className="font-bold text-md">{weather.current.dewpoint_c}°C</span> </p>
+          <p className="text-sm">
+            <span className=" text-sm text-gray-700">Value:</span>{" "}
+            <span className="font-bold text-md">
+              {weather.current.humidity}%
+            </span>{" "}
+          </p>
+          <p className="text-sm">
+            <span className=" text-sm text-gray-700">Dew Point:</span>{" "}
+            <span className="font-bold text-md">
+              {weather.current.dewpoint_c}°C
+            </span>{" "}
+          </p>
         </div>
       </span>
 
       <span className="m-3 text-sm text-lg font-light drop-shadow-xl">
         Last Updated: {weather.current.last_updated}
       </span>
-
     </div>
-  )
-}
+  );
+};
 
-export default CurrentWeatherCard
+export default CurrentWeatherCard;

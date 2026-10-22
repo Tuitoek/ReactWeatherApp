@@ -32,12 +32,17 @@ export const getHourlyForecastData = async (location, hours) => {
   }
 };
 
-export const getForecastData = async (location) => {
+export const getForecastData = async (location, days = 3, aqi = "no", alerts = "no") => {
   try {
     const response = await fetch(
-      `${BASE_URL}/forecast.json?key=${API_KEY}&q=${location}`,
+      `${BASE_URL}/forecast.json?key=${API_KEY}&q=${encodeURIComponent(location)}&days=${days}&aqi=${aqi}&alerts=${alerts}`,
     );
-    const data = response.json();
+    const data = await response.json();
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err?.error?.message || `Request failed (${response.status})`);
+    }
+    console.log(data);
     return data;
   } catch (error) {
     console.error("Error fetching forecast data:", error);
