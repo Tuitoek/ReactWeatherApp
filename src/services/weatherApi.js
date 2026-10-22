@@ -15,13 +15,13 @@ export const getCurrentWeather = async (location) => {
 };
 
 export const getHourlyForecastData = async (location, hours) => {
- const days = Math.ceil(hours / 24); // Calculate the number of days needed for the given hours
+  const days = Math.ceil(hours / 24); // Calculate the number of days needed for the given hours
   try {
     const response = await fetch(
       `${BASE_URL}/forecast.json?key=${API_KEY}&q=${location}&days=${days}&aqi=no&alerts=no`,
     );
     const data = await response.json();
-    const currentHour = new Date().getHours()
+    const currentHour = new Date().getHours();
     const hourlyData = data.forecast.forecastday
       .flatMap((day) => day.hour)
       .slice(currentHour, 24);
@@ -32,7 +32,12 @@ export const getHourlyForecastData = async (location, hours) => {
   }
 };
 
-export const getForecastData = async (location, days = 3, aqi = "no", alerts = "no") => {
+export const getForecastData = async (
+  location,
+  days = 3,
+  aqi = "no",
+  alerts = "no",
+) => {
   try {
     const response = await fetch(
       `${BASE_URL}/forecast.json?key=${API_KEY}&q=${encodeURIComponent(location)}&days=${days}&aqi=${aqi}&alerts=${alerts}`,
@@ -40,12 +45,33 @@ export const getForecastData = async (location, days = 3, aqi = "no", alerts = "
     const data = await response.json();
     if (!response.ok) {
       const err = await response.json().catch(() => ({}));
-      throw new Error(err?.error?.message || `Request failed (${response.status})`);
+      throw new Error(
+        err?.error?.message || `Request failed (${response.status})`,
+      );
     }
     console.log(data);
     return data;
   } catch (error) {
     console.error("Error fetching forecast data:", error);
     throw error;
+  }
+};
+
+export const getAstronomyData = async (location) => {
+  try {
+    const dt = new Date().toLocaleDateString("en-CA");
+    const response = await fetch(
+      `${BASE_URL}/astronomy.json?key=${API_KEY}&q=${encodeURIComponent(location)}&date={dt}`,
+    );
+    if (!response.ok) {
+      const err = await response.json(() => ({}));
+      throw new Error(
+        err?.error?.message || `Request failed (${response.status})`,
+      );
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching Astronomy Data:", error);
   }
 };
